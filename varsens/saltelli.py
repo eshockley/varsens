@@ -180,10 +180,10 @@ class Objective(object):
         f = self.flat()
         numpy.savetxt("%s%s" % (prefix, postfix), f)
 
-    def load(self, prefix, postfix, count, scaling = 1.0):
-        d = numpy.loadtxt("%s%d%s" % (prefix, 1, postfix))
-        for c in range(1, count):
-            d = numpy.append(d, numpy.loadtxt("%s%d%s" % (prefix, c+1, postfix)), axis=0)
+    def load(self, prefix, postfix, filelist, scaling = 1.0):
+        d = numpy.loadtxt("%s%s%s" % (prefix, filelist[0], postfix))
+        for c in filelist:
+            d = numpy.append(d, numpy.loadtxt("%s%s%s" % (prefix, c, postfix)), axis=0)
 
         # assign the arrays that will hold fM_1, fM_2 and fN_j_n, either as a list or single value
         if(len(d.shape) > 1):
